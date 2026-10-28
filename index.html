@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090b10">
+  <meta name="description" content="A sleek, responsive music player for discovering tracks and building playlists.">
+  <title>Pulse — Music Player</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="music.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Main navigation">
+      <a class="brand" href="#home" aria-label="Pulse home"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>pulse<span class="brand-dot">.</span></span></a>
+      <nav class="main-nav">
+        <a class="nav-link active" href="#home"><span class="nav-icon" aria-hidden="true">⌂</span> Home</a>
+        <a class="nav-link" href="#library"><span class="nav-icon" aria-hidden="true">◷</span> Your library</a>
+      </nav>
+      <div class="sidebar-section">
+        <div class="section-heading"><span>Your playlists</span><button id="quickCreate" class="icon-button small" type="button" aria-label="Create playlist" title="Create playlist">＋</button></div>
+        <div id="sidebarPlaylists" class="sidebar-playlists"><p class="muted tiny">Your playlists will appear here.</p></div>
+      </div>
+      <div class="sidebar-bottom"><div class="mini-equalizer" aria-hidden="true"><span></span><span></span><span></span><span></span></div><div><strong>Made for your moments</strong><p>Press play and find your flow.</p></div></div>
+    </aside>
+
+    <main id="home" class="main-content">
+      <header class="topbar">
+        <div class="history-controls" aria-label="Page controls"><button class="round-button" type="button" aria-label="Back" id="backButton">‹</button><button class="round-button" type="button" aria-label="Forward" id="forwardButton">›</button></div>
+        <label class="search-box"><span aria-hidden="true">⌕</span><input id="searchInput" type="search" placeholder="Search songs or artists" autocomplete="off" aria-label="Search songs or artists"><kbd>⌘ K</kbd></label>
+        <div class="top-actions"><button id="themeToggle" class="icon-button theme-button" type="button" aria-label="Switch to light theme" title="Switch theme">☼</button><div class="avatar" aria-label="Guest profile">G</div></div>
+      </header>
+
+      <section class="hero" aria-labelledby="welcomeTitle">
+        <div class="hero-copy"><p class="eyebrow"><span class="live-dot"></span> YOUR SOUND, YOUR SPACE</p><h1 id="welcomeTitle">Find your<br><span>next favorite.</span></h1><p class="hero-description">A little rhythm can change everything. Pick a track and make this moment yours.</p><button id="heroPlay" class="primary-button" type="button"><span aria-hidden="true">▶</span> Play something</button></div>
+        <div class="hero-art" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="hero-disc"><div class="disc-label"><span>pulse</span><b>♪</b></div></div><div class="hero-spark spark-one">✳</div><div class="hero-spark spark-two">✦</div><div class="hero-note note-one">♪</div><div class="hero-note note-two">♫</div></div>
+      </section>
+
+      <section class="music-section" id="library" aria-labelledby="songsHeading">
+        <div class="section-title-row"><div><p class="eyebrow">THE COLLECTION</p><h2 id="songsHeading">Made to replay</h2></div><div class="filter-wrap"><label for="genreFilter" class="sr-only">Filter by genre</label><select id="genreFilter"><option value="all">All genres</option><option value="pop">Pop</option><option value="hiphop">Hip-hop</option><option value="rock">Rock</option></select></div></div>
+        <div id="songGrid" class="song-grid" aria-live="polite"></div>
+        <p id="emptyState" class="empty-state" hidden>No tracks found. Try another search or genre.</p>
+      </section>
+
+      <section class="playlist-section" aria-labelledby="playlistHeading">
+        <div class="section-title-row"><div><p class="eyebrow">KEEP THE VIBE GOING</p><h2 id="playlistHeading">Your playlists</h2></div><button id="createPlaylistButton" class="secondary-button" type="button"><span aria-hidden="true">＋</span> New playlist</button></div>
+        <div class="playlist-layout"><div class="playlist-panel"><div class="panel-heading"><div><span class="panel-kicker">NOW BUILDING</span><h3>Quick queue</h3></div><span id="queueCount" class="count-pill">0 tracks</span></div><div id="currentPlaylist" class="queue-list"><div class="queue-empty"><span>♫</span><p>Your queue is waiting.</p><small>Add a song to get started.</small></div></div></div>
+          <div class="playlist-panel saved-panel"><div class="panel-heading"><div><span class="panel-kicker">YOUR COLLECTION</span><h3>Saved playlists</h3></div></div><div id="allPlaylists" class="saved-playlists"><p class="muted">Create a playlist to keep your favorites together.</p></div></div></div>
+      </section>
+      <footer class="footer"><span>Made for the love of music.</span><span>Pulse Player <span class="footer-dot">●</span> Local library</span></footer>
+    </main>
+  </div>
+
+  <section class="player-bar" aria-label="Audio player">
+    <div class="now-playing"><img id="playerCover" src="images/shapeofyou.jpg" alt="Current song cover"><div class="now-playing-text"><strong id="playerTitle">Shape Of You</strong><span id="playerArtist">Ed Sheeran</span></div><button id="likeButton" class="icon-button like-button" type="button" aria-label="Add current song to favorites" title="Add to favorites">♡</button></div>
+    <div class="player-center"><div class="transport-controls"><button id="shuffleButton" class="transport-button" type="button" aria-label="Toggle shuffle" title="Shuffle">⤨</button><button id="prevButton" class="transport-button" type="button" aria-label="Previous track" title="Previous">|‹</button><button id="playButton" class="play-button" type="button" aria-label="Play" title="Play">▶</button><button id="nextButton" class="transport-button" type="button" aria-label="Next track" title="Next">›|</button><button id="repeatButton" class="transport-button" type="button" aria-label="Toggle repeat" title="Repeat">↻</button></div><div class="progress-row"><span id="currentTime">0:00</span><input id="progress" class="range progress-range" type="range" min="0" max="1000" value="0" aria-label="Track progress"><span id="duration">0:00</span></div></div>
+    <div class="player-extra"><span class="volume-icon" aria-hidden="true">◖))</span><input id="volume" class="range volume-range" type="range" min="0" max="1" step="0.01" value="0.8" aria-label="Volume"><button id="queueButton" class="icon-button queue-button" type="button" aria-label="Add current song to queue" title="Add to queue">☷</button></div>
+    <audio id="audio" preload="metadata"></audio>
+  </section>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <dialog id="playlistDialog" class="playlist-dialog"><form method="dialog" id="playlistForm"><div class="dialog-top"><div><p class="eyebrow">MAKE IT YOURS</p><h2>Create a playlist</h2></div><button class="icon-button" value="cancel" aria-label="Close dialog">×</button></div><label for="playlistInput">Playlist name</label><input id="playlistInput" name="playlistName" maxlength="40" placeholder="e.g. Late night drives" required><div class="dialog-actions"><button class="secondary-button" value="cancel" type="button" id="cancelPlaylist">Cancel</button><button class="primary-button" value="default" type="submit">Create playlist</button></div></form></dialog>
+</body>
+</html>
